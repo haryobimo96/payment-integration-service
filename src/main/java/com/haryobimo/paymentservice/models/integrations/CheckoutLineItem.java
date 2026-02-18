@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class PaymentIntegrationLineItem {
+public class CheckoutLineItem {
     private String id;
     private String name;
     private Integer quantity;

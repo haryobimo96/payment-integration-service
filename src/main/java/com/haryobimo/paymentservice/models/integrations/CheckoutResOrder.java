@@ -1,18 +1,20 @@
 package com.haryobimo.paymentservice.models.integrations;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.haryobimo.paymentservice.models.Currency;
+import java.util.List;
 import lombok.Builder;
 import lombok.Data;
-import java.util.List;
 
 @Data
 @Builder
-public class PaymentIntegrationOrder {
+public class CheckoutResOrder {
     private int amount;
     @JsonProperty("invoice_number")
     private String invoiceNumber;
-    @Builder.Default
-    private String currency = "IDR";
+    private Currency currency;
+    @JsonProperty("session_id")
+    private String sessionId;
     @JsonProperty("callback_url")
     private String callbackUrl;
     @JsonProperty("callback_url_cancel")
@@ -29,6 +31,5 @@ public class PaymentIntegrationOrder {
     @JsonProperty("expired_recovered_cart")
     private Integer expiredRecoveredCart;
     @JsonProperty("line_items")
-    private List<PaymentIntegrationLineItem> lineItems;
+    private List<CheckoutLineItem> lineItems;
 }
-

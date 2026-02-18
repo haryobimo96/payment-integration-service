@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class PaymentIntegrationCustomer {
+public class CheckoutCustomer {
     private String id;
     private String name;
     @JsonProperty("last_name")

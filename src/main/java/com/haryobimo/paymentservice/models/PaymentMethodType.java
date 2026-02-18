@@ -1,9 +1,6 @@
-package com.haryobimo.paymentservice.models.integrations;
+package com.haryobimo.paymentservice.models;
 
-import lombok.Getter;
-
-@Getter
-public enum PaymentIntegrationMethodType {
+public enum PaymentMethodType {
     VIRTUAL_ACCOUNT_BCA,
     VIRTUAL_ACCOUNT_BANK_MANDIRI,
     VIRTUAL_ACCOUNT_BANK_SYARIAH_MANDIRI,
