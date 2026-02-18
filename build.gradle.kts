@@ -26,6 +26,7 @@ repositories {
 }
 
 dependencies {
+	implementation("org.apache.commons:commons-lang3:3.20.0")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-restclient")
 	implementation("org.springframework.boot:spring-boot-starter-session-jdbc")
