@@ -26,6 +26,25 @@ public class RestApiClientConfig {
     }
 
     /**
+     * Bean for DOKU client ID
+     * Configure in application.properties as: api.doku.client-id
+     */
+    @Bean(name = "dokuClientId")
+    public String dokuClientId(@Value("${api.doku.client-id:}") String clientId) {
+        return clientId;
+    }
+
+    /**
+     * Bean for DOKU client secret key (retrieved from
+     * <a href="https://sandbox.doku.com/bo/developer/api-keys">DOKU Dashboard</a>).
+     * Configure in application.properties as: api.doku.client-id
+     */
+    @Bean(name = "dokuClientSecretKey")
+    public String dokuClientSecretKey(@Value("${api.doku.client-secret-key:}") String clientSecretKey) {
+        return clientSecretKey;
+    }
+
+    /**
      * Helper method to create RestApiClient with a base URL
      */
     private RestApiClient createRestApiClient(
@@ -33,4 +52,3 @@ public class RestApiClientConfig {
         return new RestApiClient(baseUrl, restClientBuilder);
     }
 }
-
