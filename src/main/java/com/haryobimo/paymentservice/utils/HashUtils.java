@@ -5,14 +5,14 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.HexFormat;
+import java.util.Base64;
 
 public class HashUtils {
 
     private static final String HMAC_SHA256 = "HmacSHA256";
 
     /**
-     * Hashes a string using HMAC-SHA256 with the given key.
+     * Hashes a string using Base64 HMAC-SHA256 with the given key.
      *
      * @param key the hashing key
      * @param data the string to be hashed
@@ -27,12 +27,10 @@ public class HashUtils {
                     key.getBytes(StandardCharsets.UTF_8).length,
                     HMAC_SHA256
             );
-
             Mac mac = Mac.getInstance(HMAC_SHA256);
             mac.init(secretKeySpec);
-
             byte[] hashedBytes = mac.doFinal(data.getBytes(StandardCharsets.UTF_8));
-            return HexFormat.of().formatHex(hashedBytes);
+            return Base64.getEncoder().encodeToString(hashedBytes);
         } catch (NoSuchAlgorithmException | InvalidKeyException e) {
             throw new RuntimeException("Failed to hash string using SHA-256", e);
         }

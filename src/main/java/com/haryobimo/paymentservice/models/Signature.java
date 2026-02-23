@@ -35,18 +35,23 @@ public class Signature<T> {
 
         String signatureBody = sb.toString();
         sb.setLength(0);
-        return sb.append(SIGNATURE_PREFIX).append(signatureBody).toString();
+        sb.append(SIGNATURE_PREFIX);
+        return sb.append(hashBody(secretKey, signatureBody)).toString();
     }
 
     private void appendField(StringBuilder sb, String key, String value) {
         sb.append(key).append(CHAR_COLON).append(value).append(CHAR_NEW_LINE);
     }
 
+    private String hashBody(String key, String stringBody) {
+        return HashUtils.hashSha256(key, stringBody);
+    }
+
     private String hashBody(String key, T body) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             String bodyJson = objectMapper.writeValueAsString(body);
-            return HashUtils.hashSha256(key, bodyJson);
+            return hashBody(key, bodyJson);
         } catch (Exception e) {
             // TODO: Handle exception properly by utilizing ExceptionHandler and custom exceptions
             throw new RuntimeException("Failed to hash body", e);
