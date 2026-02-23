@@ -15,6 +15,7 @@ public class Signature<T> {
     private static final String KEY_REQUEST_ID = "Request-Id";
     private static final String KEY_REQUEST_TARGET = "Request-Target";
     private static final String KEY_REQUEST_TIMESTAMP = "Request-Timestamp";
+    private static final String SIGNATURE_PREFIX = "HMACSHA256=";
 
     private String clientId;
     private String requestId;
@@ -31,7 +32,10 @@ public class Signature<T> {
         appendField(sb, KEY_REQUEST_TARGET, requestTarget);
         appendField(sb, KEY_DIGEST, hashBody(secretKey, body));
         sb.setLength(sb.length() - CHAR_NEW_LINE.length());
-        return sb.toString();
+
+        String signatureBody = sb.toString();
+        sb.setLength(0);
+        return sb.append(SIGNATURE_PREFIX).append(signatureBody).toString();
     }
 
     private void appendField(StringBuilder sb, String key, String value) {
@@ -44,6 +48,7 @@ public class Signature<T> {
             String bodyJson = objectMapper.writeValueAsString(body);
             return HashUtils.hashSha256(key, bodyJson);
         } catch (Exception e) {
+            // TODO: Handle exception properly by utilizing ExceptionHandler and custom exceptions
             throw new RuntimeException("Failed to hash body", e);
         }
     }

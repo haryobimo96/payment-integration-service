@@ -21,6 +21,7 @@ public class CheckoutClient {
     private final String dokuClientSecretKey;
     private final RestClient dokuApiClient;
 
+    // TODO: Handle exceptions and errors properly (4xx, 5xx, timeouts, etc.)
     public CheckoutResponse checkout(CheckoutRequest checkoutRequest) {
         HttpHeaders headers = getHeaders(CHECKOUT_PAYMENT_PATH, checkoutRequest);
         return dokuApiClient.post()
@@ -28,8 +29,7 @@ public class CheckoutClient {
                 .headers(httpHeaders -> httpHeaders.addAll(headers))
                 .body(checkoutRequest)
                 .retrieve()
-                .toEntity(CheckoutResponse.class)
-                .getBody();
+                .body(CheckoutResponse.class);
     }
 
     private <T> HttpHeaders getHeaders(String path, T body) {

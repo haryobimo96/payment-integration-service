@@ -26,4 +26,5 @@ replay_pid*
 # intellij
 .idea
 .gradle
+build/
 gradle.properties
